@@ -1,26 +1,36 @@
-import pandas as pd
 import csv
-attributes=[['sunny','rainy'],['warm','cold'],['normal','high'],['strong','weak'],['warm','cool'],['same','change']]
+
 training_data=[]
-print(attributes)
-n=len(attributes)
 
-print("most general hypothesis : ['?','?','?','?','?','?']")
-
-with open('/content/Untitled spreadsheet - Sheet1.csv','r')as csvfile:
+with open('/content/data.csv','r')as csvfile:
   read=csv.reader(csvfile)
   for row in read:
     training_data.append(row)
-for row in training_data:
-  print(row)
 
-print('\n the initial value of hypothesis is :')
+x=len(training_data[0])
+n=x-1
+print(n)
+
+print('\nThe value of general hypothesis is :')
+genhypothesis=['?']*n
+print(genhypothesis)
+
+print("\nData in the csv file")
+
+for i in range(0,n-1):
+  print(training_data[i])
+
+print('\nThe initial value of hypothesis is :')
 hypothesis=['0']*n
 print(hypothesis)
 
+x=1
 for j in range(n):
-  hypothesis[j]=training_data[1][j]
-
+  if(training_data[x][n]=='yes'):
+    hypothesis[j]=training_data[x][j]
+  else:
+    x=x+1
+print("\nthe first positive hypothesis :")
 print(hypothesis)
 
 print("\n Find S :")
@@ -29,8 +39,8 @@ for i in range(1,len(training_data)):
     for j in range(n):
       if training_data[i][j]!=hypothesis[j]:
         hypothesis[j]="?"
-      else:
-        hypothesis[j]=training_data[i][j]
+      
   print(hypothesis)
 
-print("maximal specific hypotheis is :\n",hypothesis)
+print("\nmaximal specific hypotheis is :\n")
+print(hypothesis)
